@@ -1,0 +1,30 @@
+body {
+	font-family: monospace;
+}
+
+p {
+	margin: 0.3em;
+	margin-left: 0;
+}
+ul.nav {
+	margin: 1em;
+	padding: 0.4em;
+}
+
+ul.nav li {
+	list-style: none;
+	display: inline;
+	margin: 1em;
+}
+
+div.content {
+	margin: 1em;
+}
+
+div.faq_question {
+	font-weight: bold;
+}
+
+div.faq_answer {
+	margin: 0.8em;
+}
