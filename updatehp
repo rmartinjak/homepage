@@ -1,1 +1,1 @@
-ssh rmartinjak.de "cd ~/homepage && git pull && make install"
+ssh rmartinjak.de "cd ~/homepage && git pull && make install clean"
