@@ -28,3 +28,8 @@ div.faq_question {
 div.faq_answer {
 	margin: 0.8em;
 }
+
+p#valid_xhtml {
+	position: absolute;
+	bottom: 0em;
+}
