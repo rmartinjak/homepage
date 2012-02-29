@@ -1,4 +1,5 @@
 PAGES = index contact faq
+DESTDIR = ~/public_html
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
@@ -36,9 +37,12 @@ $(HTMLDIR)/%.html : $(HEAD) $(NAV) $(POSTNAV) $(PAGEDIR)/%.html $(TAIL)
 all : $(HTMLDIR) $(PAGES_HTML)
 	@cp -ru $(STATICDIR)/* $(HTMLDIR)
 
+install : all
+	@cp -ruv $(HTMLDIR)/* $(DESTDIR)
+
 clean :
 	@echo cleaning
 	@rm -f $(NAV)
 	@rm -rf $(HTMLDIR)
 
-.PHONY: all clean
+.PHONY: all install clean
