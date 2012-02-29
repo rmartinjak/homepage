@@ -35,7 +35,13 @@ span.highlight {
 	font-weight: bold;
 }
 
-p#validation {
+div#updated {
+	position: absolute;
+	bottom: 0em;
+	left: 0.3em;
+}
+
+div#validation {
 	position: absolute;
 	bottom: 0em;
 	right: 0em;

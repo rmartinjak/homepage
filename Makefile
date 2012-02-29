@@ -1,5 +1,6 @@
 PAGES = index contact faq
 DESTDIR = ~/public_html
+DATEFMT = "%a %d %b %Y %H:%M %z"
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
@@ -32,7 +33,7 @@ $(HTMLDIR) :
 
 $(HTMLDIR)/%.html : $(HEAD) $(NAV) $(POSTNAV) $(PAGEDIR)/%.html $(TAIL)
 	@echo $@
-	@cat $^ > $@
+	@cat $^ | sed -e "s/UPDATED/`date +$(DATEFMT)`/g" > $@
 
 all : $(HTMLDIR) $(PAGES_HTML)
 	@cp -ru $(STATICDIR)/* $(HTMLDIR)
