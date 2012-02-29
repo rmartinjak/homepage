@@ -29,7 +29,8 @@ div.faq_answer {
 	margin: 0.8em;
 }
 
-p#valid_xhtml {
+p#validation {
 	position: absolute;
 	bottom: 0em;
+	right: 0em;
 }
