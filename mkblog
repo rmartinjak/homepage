@@ -1,0 +1,51 @@
+#!/bin/sh
+
+postcount=${1:--0}
+
+blogdir=${BLOGDIR:-blog}
+item_head=${ITEM_HEAD:-src/blog/item_head.html}
+item_tail=${ITEM_TAIL:-src/blog/item_tail.html}
+datefmt=${DATEFMT:-'%a %d %b %Y %H:%M:%S %z'}
+
+tempfile=$(mktemp)
+
+IFS="$(printf '\n+')"
+for file in $(find $blogdir/ -type f)
+do
+	mtime=$(stat $file -c "%Y")
+	fname=$(basename $(stat $file -c "%n"))
+
+	if [ $(echo $fname | grep -c '[0-9]\+_.*') -eq 1 ]
+	then
+		created=$(echo $fname | cut -d "_" -f 1)
+		title=$(echo $fname | cut -d "_" -f 2-)
+	else
+		created=$mtime
+		title=$fname
+		mv $blogdir/$fname $blogdir/${created}_${fname}
+	fi
+
+	echo $created $mtime $title >> $tempfile
+done 
+
+for page in $(sort -gr $tempfile | head -n $postcount)
+do
+	created=$(echo $page | cut -d " " -f 1)
+	created_s=$(date -d @${created} +$datefmt)
+
+	mtime=$(echo $page | cut -d " " -f 2)
+	mtime_s=$(date -d @${mtime} +$datefmt)
+
+	fname=$(echo $page | cut -d " " -f 3-)
+	title="$(echo $fname | tr '_' " ")"
+
+	cat $item_head $blogdir/${created}_${fname} $item_tail |
+	sed -e "s/CREATED_STR/$created_s/g"  \
+		-e "s/CREATED_TS/$created/g" \
+		-e "s/MODIFIED_STR/$mtime_s/g"   \
+		-e "s/MODIFIED_TS/$mtime/g"  \
+		-e "s/TITLE/$title/g"
+done
+
+unset IFS
+rm $tempfile
