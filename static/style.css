@@ -20,7 +20,13 @@ ul.nav li {
 
 div.content {
 	margin: 1em;
+	margin-bottom: 5em;
 }
+
+span.highlight {
+	font-weight: bold;
+}
+
 
 div.faq_question {
 	font-weight: bold;
@@ -31,24 +37,14 @@ div.faq_answer {
 	margin-bottom: 2em;
 }
 
-span.highlight {
-	font-weight: bold;
-}
-
 div#updated {
-	position: absolute;
-	bottom: 1em;
-	left: 0.3em;
+	color: #777;
 }
 
 div#iewarning {
-	position: absolute;
-	bottom: 0em;
-	left: 0.3em;
+	color: #777;
 }
 
 div#validation {
-	position: absolute;
-	bottom: 0em;
-	right: 0em;
+	margin-top: 0.5em;
 }
