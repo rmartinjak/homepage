@@ -64,7 +64,7 @@ $(PAGEDIR)/blog_all.html :  $(BLOG_DIR)/* $(BLOG_ALL_HEAD) $(BLOG_ALL_TAIL)
 
 $(HTMLDIR)/%.html : $(HEAD) $(NAV) $(POSTNAV) $(PAGEDIR)/%.html $(TAIL)
 	@echo $@
-	@cat $^ | sed -e "s/UPDATED/`date +$(DATEFMT)`/g" > $@
+	@cat $^ | sed -e "s/TITLE/$*/g" -e "s/UPDATED/`date +$(DATEFMT)`/g" > $@
 
 all : $(HTMLDIR) $(PAGES_HTML)
 	@cp -ruv $(STATICDIR)/* $(HTMLDIR)
