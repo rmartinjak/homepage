@@ -1,0 +1,11 @@
+I modified the `mkblog` script, now it can process (for example) [Markdown][md]!
+
+Check out this list:
+====================
+
+* Item!
+* Another item!
+
+*Way better* than writing HTML ;)
+
+[md]: http://daringfireball.net/projects/markdown/ "Markdown project homepage"

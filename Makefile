@@ -3,7 +3,9 @@ PAGES_NO_NAV = blog_all
 
 DESTDIR = ~/public_html
 DATEFMT = "%a %d %b %Y %H:%M %z"
+
 BLOG_POSTCOUNT = 5
+BLOG_PCMD = "markdown_py"
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
@@ -49,7 +51,7 @@ $(PAGEDIR)/blog.html : $(BLOG_DIR)/* $(BLOG_HEAD) $(BLOG_TAIL)
 	@echo > $@
 	@cat $(BLOG_HEAD) >> $@
 	@BLOGDIR=$(BLOG_DIR) BLOGSRC=$(SRCDIR)/blog DATEFMT=$(DATEFMT) \
-	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	\
+	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	PCMD=$(BLOG_PCMD) \
 	./mkblog $(BLOG_POSTCOUNT) >> $@
 	@cat $(BLOG_TAIL) >> $@
 
@@ -58,7 +60,7 @@ $(PAGEDIR)/blog_all.html :  $(BLOG_DIR)/* $(BLOG_ALL_HEAD) $(BLOG_ALL_TAIL)
 	@echo > $@
 	@cat $(BLOG_ALL_HEAD) >> $@
 	@BLOGDIR=$(BLOG_DIR) BLOGSRC=$(SRCDIR)/blog DATEFMT=$(DATEFMT) \
-	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	\
+	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	PCMD=$(BLOG_PCMD) \
 	./mkblog >> $@
 	@cat $(BLOG_ALL_TAIL) >> $@
 

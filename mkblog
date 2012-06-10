@@ -7,6 +7,8 @@ item_head=${ITEM_HEAD:-src/blog/item_head.html}
 item_tail=${ITEM_TAIL:-src/blog/item_tail.html}
 datefmt=${DATEFMT:-'%a %d %b %Y %H:%M:%S %z'}
 
+pcmd=${PCMD:-cat}
+
 tempfile=$(mktemp)
 
 IFS="$(printf '\n+')"
@@ -39,7 +41,7 @@ do
 	fname=$(echo $page | cut -d " " -f 3-)
 	title="$(echo $fname | tr '_' " ")"
 
-	cat $item_head $blogdir/${created}_${fname} $item_tail |
+	(cat $item_head; cat $blogdir/${created}_${fname} | eval $pcmd; cat $item_tail) |
 	sed -e "s/CREATED_STR/$created_s/g"  \
 		-e "s/CREATED_TS/$created/g" \
 		-e "s/MODIFIED_STR/$mtime_s/g"   \
