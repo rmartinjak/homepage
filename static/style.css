@@ -2,8 +2,14 @@ body {
 	font-family: monospace;
 }
 
+h1 {
+	font-size: 1em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
 p {
-	margin: 0.5em;
+	margin: 1em;
 	margin-left: 0;
 }
 
