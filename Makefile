@@ -5,7 +5,7 @@ DESTDIR = ~/public_html
 DATEFMT = "%a %d %b %Y %H:%M %z"
 
 BLOG_POSTCOUNT = 5
-BLOG_PCMD = "markdown_py"
+BLOG_PCMD = "markdown_py /dev/stdin"
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
