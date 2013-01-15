@@ -1,11 +1,13 @@
-PAGES = index blog contact faq
+PAGES = index blog contact faq sagenb-ldap
 PAGES_NO_NAV = blog_all
 
 DESTDIR = ~/public_html
 DATEFMT = "%a %d %b %Y %H:%M %z"
 
+MARKDOWN = "markdown"
+
 BLOG_POSTCOUNT = 5
-BLOG_PCMD = "markdown_py /dev/stdin"
+BLOG_PCMD = "$(MARKDOWN) /dev/stdin"
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
@@ -44,7 +46,7 @@ $(NAV) : $(NAV_HEAD) $(NAV_ITEM) $(NAV_TAIL)
 	@cat $(NAV_TAIL) >> $@
 
 $(HTMLDIR) :
-	@mkdir $(HTMLDIR)
+	@mkdir -p $(HTMLDIR)
 
 $(PAGEDIR)/blog.html : $(BLOG_DIR)/* $(BLOG_HEAD) $(BLOG_TAIL)
 	@echo $@
@@ -63,6 +65,9 @@ $(PAGEDIR)/blog_all.html :  $(BLOG_DIR)/* $(BLOG_ALL_HEAD) $(BLOG_ALL_TAIL)
 	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	PCMD=$(BLOG_PCMD) \
 	./mkblog >> $@
 	@cat $(BLOG_ALL_TAIL) >> $@
+
+$(PAGEDIR)/%.html : $(PAGEDIR)/%.md
+	@$(MARKDOWN) $< > $@
 
 $(HTMLDIR)/%.html : $(HEAD) $(NAV) $(POSTNAV) $(PAGEDIR)/%.html $(TAIL)
 	@echo $@
