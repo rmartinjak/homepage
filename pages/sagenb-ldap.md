@@ -45,7 +45,6 @@ Installing sage and sagenb with LDAP support from scratch
 
 1. Start the notebook:
 		
-		cd $SAGE_ROOT/devel/sagenb
 		$SAGE_ROOT/sage -n secure=True automatic_login=False
 
 
