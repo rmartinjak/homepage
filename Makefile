@@ -1,13 +1,7 @@
-PAGES = index blog contact faq sagenb-ldap
-PAGES_NO_NAV = blog_all
+PAGES = index contact faq
 
 DESTDIR = ~/public_html
 DATEFMT = "%a %d %b %Y %H:%M %z"
-
-MARKDOWN = "markdown"
-
-BLOG_POSTCOUNT = 5
-BLOG_PCMD = "$(MARKDOWN) /dev/stdin"
 
 SRCDIR = src
 NAVDIR = $(SRCDIR)/nav
@@ -22,15 +16,6 @@ NAV_HEAD = $(NAVDIR)/head.html
 NAV_ITEM = $(NAVDIR)/item.html
 NAV_TAIL = $(NAVDIR)/tail.html
 NAV = $(SRCDIR)/nav.html
-
-BLOG_DIR = blog
-BLOG_SRCDIR = $(SRCDIR)/blog
-BLOG_HEAD = $(BLOG_SRCDIR)/head.html
-BLOG_TAIL = $(BLOG_SRCDIR)/tail.html
-BLOG_ALL_HEAD = $(BLOG_SRCDIR)/head_all.html
-BLOG_ALL_TAIL = $(BLOG_SRCDIR)/tail_all.html
-BLOG_ITEM_HEAD = $(BLOG_SRCDIR)/item_head.html
-BLOG_ITEM_TAIL = $(BLOG_SRCDIR)/item_tail.html
 
 PAGES_ALL = $(PAGES) $(PAGES_NO_NAV)
 PAGES_SRC = $(addprefix $(PAGEDIR)/,$(addsuffix .html, $(PAGES_ALL)))
@@ -47,27 +32,6 @@ $(NAV) : $(NAV_HEAD) $(NAV_ITEM) $(NAV_TAIL)
 
 $(HTMLDIR) :
 	@mkdir -p $(HTMLDIR)
-
-$(PAGEDIR)/blog.html : $(BLOG_DIR)/* $(BLOG_HEAD) $(BLOG_TAIL)
-	@echo $@
-	@echo > $@
-	@cat $(BLOG_HEAD) >> $@
-	@BLOGDIR=$(BLOG_DIR) BLOGSRC=$(SRCDIR)/blog DATEFMT=$(DATEFMT) \
-	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	PCMD=$(BLOG_PCMD) \
-	./mkblog $(BLOG_POSTCOUNT) >> $@
-	@cat $(BLOG_TAIL) >> $@
-
-$(PAGEDIR)/blog_all.html :  $(BLOG_DIR)/* $(BLOG_ALL_HEAD) $(BLOG_ALL_TAIL)
-	@echo $@
-	@echo > $@
-	@cat $(BLOG_ALL_HEAD) >> $@
-	@BLOGDIR=$(BLOG_DIR) BLOGSRC=$(SRCDIR)/blog DATEFMT=$(DATEFMT) \
-	ITEM_HEAD=$(BLOG_ITEM_HEAD) ITEM_TAIL=$(BLOG_ITEM_TAIL)	PCMD=$(BLOG_PCMD) \
-	./mkblog >> $@
-	@cat $(BLOG_ALL_TAIL) >> $@
-
-$(PAGEDIR)/%.html : $(PAGEDIR)/%.md
-	@$(MARKDOWN) $< > $@
 
 $(HTMLDIR)/%.html : $(HEAD) $(NAV) $(POSTNAV) $(PAGEDIR)/%.html $(TAIL)
 	@echo $@
