@@ -1,2 +1,1 @@
-how to blog: drop a file (containing HTML) in blog/ and run make.
-`$filename | tr "_" " "` will be the post title
+Not much to see here
